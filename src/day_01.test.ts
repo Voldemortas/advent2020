@@ -13,4 +13,5 @@ test('part 1', () => {
 
 test('part 2', () => {
   expect(part2(input)).toBe(241861950)
+  console.log(part2(input))
 })

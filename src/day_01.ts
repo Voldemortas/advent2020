@@ -7,7 +7,7 @@ export function part1(input: string): number {
     .split('\n')
     .map((e) => +e)
     .sort()
-  for (let i = 0; i < lines.length - 2; i++) {
+  for (let i = 0; i < lines.length - 1; i++) {
     for (let j = lines.length - 1; j > 0; j--) {
       if (lines[i] + lines[j] === 2020) {
         return lines[i] * lines[j]
@@ -22,8 +22,8 @@ export function part2(input: string): number {
     .split('\n')
     .map((e) => +e)
     .sort()
-  for (let i = 0; i < lines.length - 3; i++) {
-    for (let k = i + 1; k < lines.length - 2; k++) {
+  for (let i = 0; i < lines.length - 2; i++) {
+    for (let k = i + 1; k < lines.length - 1; k++) {
       for (let j = lines.length - 1; j > 0; j--) {
         if (lines[i] + lines[j] + lines[k] === 2020) {
           return lines[i] * lines[j] * lines[k]
