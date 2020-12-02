@@ -23,7 +23,14 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-  return 0
+  const data = splitText(input)
+  const answer = data.filter((e) => {
+    return (
+      (e.text[e.min - 1] === e.char && e.text[e.max - 1] !== e.char) ||
+      (e.text[e.max - 1] === e.char && e.text[e.min - 1] !== e.char)
+    )
+  })
+  return answer.length
 }
 
 console.log('\x1b[31mDay 02')
