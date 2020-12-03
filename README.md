@@ -6,5 +6,5 @@ Usage:
 
 `yarn install` - to install all dependencies  
 `yarn test` - to run all the tests  
-`yarn run day 01` - to run day 01. *Change 01 to any other day*cd  
-`yarn run day` - to run the latest day  
+`yarn run day 01` - to run day 01. _Change 01 to any other day_  
+`yarn run day` - to run the latest day
