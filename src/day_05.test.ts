@@ -14,5 +14,8 @@ test('part 1', () => {
 })
 
 test('part 2', () => {
-  expect(part2(input[0][0])).toBe(0)
+  expect(
+    part2(`FFFFFFFRLR
+FFFFFFFRRR`)
+  ).toBe(6)
 })
