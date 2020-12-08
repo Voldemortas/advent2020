@@ -13,6 +13,8 @@ export type Node = {
   real: boolean
 }
 
+const name = 'shiny gold'
+
 export function decodeData(input: string): Node[] {
   const tail = /(((\d+) (\w+ \w+)) bags?([,.]?)|no other bags.)+/g
   const head = /(\w+ \w+) bags contain /g
@@ -36,7 +38,6 @@ export function decodeData(input: string): Node[] {
 }
 
 function findBag(node: Node): boolean {
-  const name = 'shiny gold'
   if (node.children.length === 0) {
     return false
   }
@@ -62,6 +63,13 @@ function constructGraph(nodes: Node[]): Node[] {
   return nodes
 }
 
+function countBags(node: Node): number {
+  return node.children.reduce(
+    (acc: number, cur) => acc + cur.amount + cur.amount * countBags(cur.node),
+    0
+  )
+}
+
 export function part1(input: string): number {
   let data = decodeData(input)
   let structure = constructGraph(data)
@@ -69,7 +77,9 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-  return 0
+  let data = decodeData(input)
+  let structure = constructGraph(data)
+  return countBags(structure.filter((e) => e.name === name)[0])
 }
 console.log('\x1b[31mDay 07')
 console.log('\x1b[0mPart 1:\n\x1b[32m' + part1(input))
