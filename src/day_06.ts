@@ -22,7 +22,17 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-  return 0
+  return input
+    .split('\n\n')
+    .map((e) =>
+      e.split('\n').reduce((acc: string[], cur, index) => {
+        if (index === 0) {
+          return cur.split('')
+        }
+        return acc.filter((f) => cur.split('').includes(f))
+      }, [])
+    )
+    .reduce((acc, cur) => acc + cur.length, 0)
 }
 
 console.log('\x1b[31mDay 06')
