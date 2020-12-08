@@ -14,33 +14,51 @@ function decode(input: string): Command[] {
   })
 }
 
-export function part1(input: string): number {
+function run(
+  commands: Command[]
+): { visited: number[]; value: number; success: boolean } {
   let current = { position: 0, value: 0 }
-  let prev = 0
   let visited: number[] = []
-  const commads = decode(input)
   while (!visited.some((e) => e === current.position)) {
+    if (current.position >= commands.length) {
+      return { visited, value: current.value, success: true }
+    }
     visited.push(current.position)
-    if (commads[current.position].instruction === 'nop') {
+    if (commands[current.position].instruction === 'nop') {
       current.position += 1
       continue
     }
-    if (commads[current.position].instruction === 'acc') {
-      prev = current.value + 0
-      current.value += commads[current.position].value
+    if (commands[current.position].instruction === 'acc') {
+      current.value += commands[current.position].value
       current.position += 1
       continue
     }
-    if (commads[current.position].instruction === 'jmp') {
-      current.position += commads[current.position].value
+    if (commands[current.position].instruction === 'jmp') {
+      current.position += commands[current.position].value
       continue
     }
   }
-  return current.value
+  return {
+    visited: visited.filter((e) => commands[e].instruction !== 'acc'),
+    value: current.value,
+    success: false,
+  }
+}
+
+export function part1(input: string): number {
+  const commads = decode(input)
+  return run(commads).value
 }
 
 export function part2(input: string): number {
-  return 0
+  const commads = decode(input)
+  const runs: number[] = run(commads).visited
+  const reruns = runs.map((e) => {
+    let temp = JSON.parse(JSON.stringify(commads))
+    temp[e].instruction = temp[e].instruction === 'jmp' ? 'nop' : 'jmp'
+    return run(temp)
+  })
+  return reruns.filter((e) => e.success)[0].value
 }
 
 console.log('\x1b[31mDay 08')
