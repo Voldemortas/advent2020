@@ -38,10 +38,34 @@ export function part1(input: string, size: number): number {
   return -1
 }
 
-export function part2(input: string): number {
-  return 0
+export function part2(input: string, size: number): number {
+  const data = decodeData(input)
+  const previousPart = part1(input, size)
+  const index = data.findIndex((e) => e === previousPart)
+  const bigbigarray: number[][] = data
+    .slice(0, index)
+    .reduce(
+      (acc: number[][][], cur, index, arr) => {
+        let answer: number[][] = []
+        for (let i = 1 + index; i < arr.length; i++) {
+          if (i === 1 + index) {
+            answer = [[arr[i], cur]]
+          } else {
+            answer = [...answer, [...answer[answer.length - 1], arr[i]]]
+          }
+        }
+        return [...acc, answer]
+      },
+      [[]]
+    )
+    .flat(1)
+  let answer = bigbigarray.filter(
+    (e) => e.reduce((acc: number, cur) => acc + cur) === previousPart
+  )[0]
+
+  return Math.max(...answer) + Math.min(...answer)
 }
 
 console.log('\x1b[31mDay 09')
 console.log('\x1b[0mPart 1:\n\x1b[32m' + part1(input, 25))
-console.log('\x1b[0mPart 2:\n\x1b[32m' + part2(input) + '\x1b[33m')
+console.log('\x1b[0mPart 2:\n\x1b[32m' + part2(input, 25) + '\x1b[33m')
