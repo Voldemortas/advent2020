@@ -50,5 +50,21 @@ test('part 1', () => {
 })
 
 test('part 2', () => {
-  expect(part2(input1)).toBe(0)
+  expect(
+    part2(`1
+2
+3
+4
+5`)
+  ).toBe(13)
+  expect(
+    part2(`1
+2
+3
+4
+5
+6`)
+  ).toBe(24)
+  expect(part2(input1)).toBe(8)
+  expect(part2(input2)).toBe(19208)
 })
