@@ -76,11 +76,49 @@ export function part1(input: string): [number, number] {
   return [Math.abs(spaceship.x), Math.abs(spaceship.y)]
 }
 
-export function part2(input: string): number {
-  return 0
+export function part2(input: string): [number, number] {
+  const instructions = getInstructions(input)
+  let spaceship: { x: number; y: number } = {
+    x: 0,
+    y: 0,
+  }
+  let waypoint: { x: number; y: number } = {
+    x: 10,
+    y: 1,
+  }
+  instructions.forEach((e) => {
+    if (e.action === 'F') {
+      spaceship.x += waypoint.x * e.value
+      spaceship.y += waypoint.y * e.value
+    }
+    if (e.action === 'E') {
+      waypoint.x += e.value
+    }
+    if (e.action === 'W') {
+      waypoint.x -= e.value
+    }
+    if (e.action === 'N') {
+      waypoint.y += e.value
+    }
+    if (e.action === 'S') {
+      waypoint.y -= e.value
+    }
+    if (e.action === 'R') {
+      for (let i = 0; i < e.value / 90; i++) {
+        waypoint = { ...waypoint, x: waypoint.y, y: -waypoint.x }
+      }
+    }
+    if (e.action === 'L') {
+      for (let i = 0; i < e.value / 90; i++) {
+        waypoint = { ...waypoint, x: -waypoint.y, y: waypoint.x }
+      }
+    }
+  })
+  return [Math.abs(spaceship.x), Math.abs(spaceship.y)]
 }
 
 console.log('\x1b[31mDay 12')
 const [e, n] = part1(input)
 console.log('\x1b[0mPart 1:\n\x1b[32m' + (e + n))
-console.log('\x1b[0mPart 2:\n\x1b[32m' + part2(input) + '\x1b[33m')
+const [e1, n1] = part2(input)
+console.log('\x1b[0mPart 2:\n\x1b[32m' + (e1 + n1) + '\x1b[33m')
