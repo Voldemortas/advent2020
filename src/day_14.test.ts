@@ -10,5 +10,10 @@ test('part 1', () => {
 })
 
 test('part 2', () => {
-  expect(part2(input)).toBe(0)
+  expect(
+    part2(`mask = 000000000000000000000000000000X1001X
+mem[42] = 100
+mask = 00000000000000000000000000000000X0XX
+mem[26] = 1`).toString()
+  ).toBe('208')
 })
