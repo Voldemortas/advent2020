@@ -20,7 +20,19 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-  return 0
+  const timetable: (number | 'x')[] = decodeInput(input).busses
+  let answer = +timetable[0]
+  let commonMultiple = answer
+  for (let i = 1; i < timetable.length; i++) {
+    if (timetable[i] === 'x') {
+      continue
+    }
+    while ((answer + i) % +timetable[i] !== 0) {
+      answer += commonMultiple
+    }
+    commonMultiple *= +timetable[i]
+  }
+  return answer
 }
 
 console.log('\x1b[31mDay 13')

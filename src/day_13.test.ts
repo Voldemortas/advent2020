@@ -8,5 +8,5 @@ test('part 1', () => {
 })
 
 test('part 2', () => {
-  expect(part2(input)).toBe(0)
+  expect(part2(input)).toBe(1068781)
 })
